@@ -1,0 +1,13 @@
+[project]
+name = "ko-stdict-mcp-server"
+version = "1.0.0"
+description = "Korean Standard Dictionary MCP server"
+readme = "README.md"
+requires-python = ">=3.11"
+
+dependencies = [
+  "httpx>=0.27",
+  "keyring>=24",
+  "mcp>=1.12.0",
+  "xmltodict>=0.13",
+]

@@ -1,0 +1,37 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          
+      - name: Install dxt
+        run: |
+          sudo npm install -g @anthropic-ai/dxt
+          
+      - name: Build dxt package
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/v}
+          dxt pack . ko-stdict-mcp-server-${VERSION}-uv.dxt
+          
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ko-stdict-mcp-server-*-uv.dxt
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+

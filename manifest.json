@@ -1,0 +1,36 @@
+{
+  "dxt_version": "0.1",
+  "name": "ko-stdict-mcp-server",
+  "display_name": "표준국어대사전",
+  "version": "1.0.0",
+  "description": "Korean Standard Dictionary MCP server",
+  "author": {
+    "name": "Yong Choi",
+    "email": "ychoi_kr@naver.com",
+    "url": "https://ychoi.kr/"
+  },
+  "server": {
+    "type": "python",
+    "entry_point": "server/main.py",
+    "mcp_config": {
+      "command": "uvx",
+      "args": [
+        "--from", "${__dirname}",
+        "python", "${__dirname}/server/main.py"
+      ],
+      "env": {
+        "STDICT_API_KEY": "${user_config.STDICT_API_KEY}"
+      }
+    }
+  },
+  "user_config": {
+    "STDICT_API_KEY": {
+      "type": "string",
+      "title": "오픈 API 서버 인증 키",
+      "description": "국립국어원에서 오픈 API 서비스 인증 키를 발급받아서 입력하세요.",
+      "required": true,
+      "sensitive": true
+    }
+  },
+  "license": "MIT"
+}
